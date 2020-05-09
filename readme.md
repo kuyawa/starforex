@@ -8,3 +8,4 @@ Under construction...
 
 Screenshot
 
+![Screenshot](https://raw.githubusercontent.com/kuyawa/starforex/master/extras/screenshot.png)
