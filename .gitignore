@@ -1,5 +1,6 @@
 # Local development
 .DS_Store
+.htaccess
 *.env
 *.dev
 

@@ -3,7 +3,9 @@
 /* Colors: E0E6EA A8B3CE */
 html, body { margin: 0; padding: 0; font: normal 1.0em sans-serif; color: #E0E6EA; background-color: #1A262C; /*#293941;*/ }
 wrap { display: block; overflow: hidden; width: 1220px; margin: 0 auto; padding: 0 20px; /*border: 1px solid yellow;*/ }
-a  { text-decoration: none; }
+a  { text-decoration: none; color: #E0E6EA; }
+a:hover  { text-decoration: none; color: #FAFAFA; }
+a:visited  { text-decoration: none; color: #E0E6EA; }
 li { list-style-type: none; }
 
 header { margin: 0; padding: 10px 0; background-color: #1A262C; }
@@ -11,7 +13,8 @@ header h1, header h2, header h3 { display: inline-block; margin: 0; padding: 0; 
 header h1 { font-size: 1.2em; font-weight: 600; margin: 0 20px 0 10px; }
 header h2 { font-size: 1.0em; font-weight: 300; color: #A8B3CE; }
 header h3 { font-size: 1.0em; font-weight: 300; color: #6E914F; float: right; margin: 0px 10px 0 0; }
-#dollar { font-size: 1.2em; font-weight: 500; color: #8EB16F;}
+#dollar { margin-right: 30px; }
+.rate { font-size: 1.2em; font-weight: 500; color: #8EB16F;}
 
 footer { margin: 0; padding: 10px 0; background-color: #1A262C; text-align: right; }
 footer h1, footer h2 { display: inline-block; margin: 0; padding: 0; }
@@ -118,17 +121,17 @@ svg .grid path       { stroke-width: 0; }
 #all-coins tr:nth-child(even) { background-color: #162228; border: 1px solid #142026; }
 #all-coins th { padding: 4px 8px; font-size: 0.8em; font-weight: 400; font-variant: small-caps; color: #A8B3CE; border-bottom: 1px solid #2C383E; cursor: pointer; }
 #all-coins td { padding: 2px 8px; font-size: 0.9em; }
-#all-coins th:nth-child(1)  { text-align: left;  padding-left: 12px; }
+#all-coins th:nth-child(1)  { text-align: center; }
 #all-coins th:nth-child(2)  { text-align: left;  }
 #all-coins th:nth-child(3)  { text-align: left;  }
-#all-coins th:nth-child(4)  { text-align: right; padding-right: 20px; }
+#all-coins th:nth-child(4)  { text-align: right; }
 #all-coins th:nth-child(5)  { text-align: right; }
 #all-coins th:nth-child(6)  { text-align: right; }
 #all-coins th:nth-child(7)  { text-align: right; }
 #all-coins th:nth-child(8)  { text-align: right; }
 #all-coins th:nth-child(9)  { text-align: right; }
 #all-coins th:nth-child(10) { text-align: right; }
-#all-coins td:nth-child(1)  { text-align: left;  padding-left: 12px; }
+#all-coins td:nth-child(1)  { text-align: center; }
 #all-coins td:nth-child(2)  { text-align: left;  }
 #all-coins td:nth-child(3)  { text-align: left;  }
 #all-coins td:nth-child(4)  { text-align: right; }
@@ -139,6 +142,8 @@ svg .grid path       { stroke-width: 0; }
 #all-coins td:nth-child(9)  { text-align: right; }
 #all-coins td:nth-child(10) { text-align: right; }
 #all-coins tr.select td { background-color: #0A161C; }
+
+#all-coins td.rank { color: #A8B3CE; }
 /*#all-coins tr:hover  td { background-color: #293941; cursor: pointer; }*/
 
 #promo    { width: 1220px; margin: 10px 0 0; padding: 14px 0; text-align: center; background-color: #1A262C; }
@@ -146,6 +151,18 @@ svg .grid path       { stroke-width: 0; }
 #promo h2 { margin: 0; font-weight: 300; font-size: 1.2em; color: #A8B3CE; }
 #simulator { display: inline-block; width: 200px; margin-top: 10px; padding: 6px 10px; font-variant: small-caps; border: none; color: #FFF; background-color: #850414; cursor: pointer; }
 #simulator:active { color: #DDD; background-color: #750404; }
+
+#calc-form button { display:inline-block; width: 150px; margin: 15px 10px; padding: 4px 10px; border: none; }
+
+#button-buy  { color: #FFF; background-color: #4A7025; cursor: pointer; }
+#button-sell { color: #FFF; background-color: #850414; cursor: pointer; }
+#button-buy:active  { color: #DDD; background-color: #3A6015; }
+#button-sell:active { color: #DDD; background-color: #750404; }
+#button-buy[disabled]  { color: #999; background-color: #495961; }
+#button-sell[disabled] { color: #999; background-color: #495961; }
+
+
+
 
 /* RESPONSIVE */
 
