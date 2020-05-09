@@ -1,6 +1,6 @@
 # STARFOREX
 
-Forex platform built on top of the Stellar Network for easily exchanging worldwide currencies
+Forex platform built on top of the Stellar Network for easily exchanging world currencies
 
 [Starforex.co](https://starforex.co)
 
