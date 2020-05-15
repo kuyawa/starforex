@@ -27,7 +27,7 @@ foreach ($price as $sym => $value) {
 	if(!$name){ $name = $sym . " Unknown"; }
 	$pusd = number_format($value, 4);
 	$pxlm = number_format($value * $xlm, 4);
-	$fiat[$sym] = [$name, $pusd, $pxlm];
+	$fiat[$sym] = [$name, $pxlm, $pusd];
 }
 
 ?>
@@ -83,7 +83,7 @@ foreach ($price as $sym => $value) {
 			<div id="coins-wrap">
 				<table id="coins">
 					<thead>
-						<tr> <th onclick="sortTable(event,0,0)">Symbol</th> <th onclick="sortTable(event,1,2)">USD Price</th> <th onclick="sortTable(event,2,2)">XLM Price</th> <th onclick="sortTable(event,3,2)">Change 24h</th> </tr>
+						<tr> <th onclick="sortTable(event,0,0)">Symbol</th> <th onclick="sortTable(event,1,2)">XLM Price</th> <th onclick="sortTable(event,2,2)">USD Price</th> <th onclick="sortTable(event,3,2)">Change 24h</th> </tr>
 					</thead>
 					<tbody>
 						<tr id="USD" class="select"> <td>USD</td> <td class="price-up"><?= $fiat['USD'][1] ?></td> <td class="go-no"><?= $fiat['USD'][2] ?></td> <td class="go-no">0.00%</td> </tr>
@@ -106,20 +106,10 @@ foreach ($price as $sym => $value) {
 
 			<div id="info">
 				<li>
-					<h1 id="info-coin">XLM/USD</h1>
+					<h2 id="info-trustline"><a href="#">Trustline</a></h2>
+					<h1 id="info-purchase"><a href="#">Purchase</a></h1>
 				</li>
-				<li><label>USD Price:    </label><span id="info-price-usd">0.0000</span></li>
-				<li><label>BTC Price:    </label><span id="info-price-btc">0.0000</span></li>
-				<li><label>XLM Price:    </label><span id="info-price-xlm">0.0000</span></li>
-				<li><label>High 24h:     </label><span id="info-highest"  >0.0000</span></li>
-				<li><label>Low 24h:      </label><span id="info-lowest"   >0.0000</span></li>
-				<li><label>Spread:       </label><span id="info-spread"   >0.00% </span></li>
-				<li><label>Change 1h:    </label><span id="info-change01" >0.00% </span></li>
-				<li><label>Change 24h:   </label><span id="info-change24" >0.00% </span></li>
-				<li><label>Volume:       </label><span id="info-volume"   >0</span></li>
-				<li><label>Market Cap:   </label><span id="info-capital"  >0</span></li>
-				<li><label>Supply:       </label><span id="info-supply"   >0</span></li>
-				<!--li><label>Disponible: </label><span id="info-avail"    > 0</span></li-->
+				<li class="qrcode"><img id="qrcode" src="static/qrcode-test.png"></li>
 			</div>
 		</div>
 
@@ -142,14 +132,20 @@ foreach ($price as $sym => $value) {
 				<div id="calculator">
 					<h1 id="calc-title">BUY / SELL</h1>
 					<form id="calc-form">
-						<li><label id="calc-name">USD:</label><input type="textbox" id="calc-sym" value="1" tabindex="1"/></li>
-						<li><label>BTC:</label><input type="textbox" id="calc-btc" value="0" tabindex="2"/></li>
-						<li><label>XLM:</label><input type="textbox" id="calc-xlm" value="0" tabindex="3"/></li>
+						<li><label>Buy <span id="label-quote">USD</span>:      </label><input type="textbox" id="calc-quote" value="1" tabindex="1"/></li>
+						<li><label>Price <span id="label-price">XLM/USD</span>:</label><input type="textbox" id="calc-price" value="0" tabindex="2" disabled/></li>
+						<li><label>Sell <span id="label-base">XLM</span>:</label><input type="textbox" id="calc-base" value="0" tabindex="3"/></li>
 						<button id="button-buy" onclick="onBuy()">BUY</button> <button id="button-sell" onclick="onSell()">SELL</button>
 					</form>
 				</div>
 				<div id="indices">
-					<h1>QR-Code</h1>
+					<h1 id="info-market">XLM/USD</h1>
+					<li><label>Close:        </label><span id="info-close"   >0.0000</span></li>
+					<li><label>Open:         </label><span id="info-open"    >0.0000</span></li>
+					<li><label>High 24h:     </label><span id="info-high"    >0.0000</span></li>
+					<li><label>Low 24h:      </label><span id="info-low"     >0.0000</span></li>
+					<li><label>Spread:       </label><span id="info-spread"  >0.00% </span></li>
+					<li><label>Change 24h:   </label><span id="info-change24">0.00% </span></li>
 				</div>
 			</div>
 		</div>
@@ -171,7 +167,7 @@ foreach ($price as $sym => $value) {
 			       <col span="1">
     			</colgroup>
 				<thead>
-					<tr> <th onclick="sortTable(event,0,1)">Rank</th> <th onclick="sortTable(event,1,0)">Symbol</th> <th onclick="sortTable(event,2,0)">Name</th> <th onclick="sortTable(event,3,2)">USD Price</th> <th onclick="sortTable(event,4,2)">XLM Price</th> <th onclick="sortTable(event,5,1)">Volume 24hr</th> <th onclick="sortTable(event,6,1)">Market Cap</th> <th onclick="sortTable(event,7,2)">Change 1h</th> <th onclick="sortTable(event,8,2)">Change 24h</th> <th onclick="sortTable(event,9,1)">Supply</th> </tr>
+					<tr> <th onclick="sortTable(event,0,1)">Rank</th> <th onclick="sortTable(event,1,0)">Symbol</th> <th onclick="sortTable(event,2,0)">Name</th> <th onclick="sortTable(event,3,2)">XLM Price</th> <th onclick="sortTable(event,4,2)">USD Price</th> <th onclick="sortTable(event,5,1)">Volume 24hr</th> <th onclick="sortTable(event,6,1)">Market Cap</th> <th onclick="sortTable(event,7,2)">Change 1h</th> <th onclick="sortTable(event,8,2)">Change 24h</th> <th onclick="sortTable(event,9,1)">Supply</th> </tr>
 				</thead>
 				<tbody>
 					<?php 
@@ -197,9 +193,10 @@ foreach ($price as $sym => $value) {
 <script>
 var xlmPrice = '<?= $xlm ?>';
 var btcPrice = '<?= $btc ?>';
+var forex = JSON.parse('<?= json_encode($price) ?>');
 </script>
 
 <!-- <script type="text/javascript" src="static/finchartsvg.js"></script> -->
-<!-- <script type="text/javascript" src="static/main.js"></script> -->
+<script type="text/javascript" src="static/main.js"></script>
 </body>
 </html>

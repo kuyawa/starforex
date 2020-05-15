@@ -64,13 +64,18 @@ footer h2 { font-size: 1.0em; font-weight: 300; color: #A8B3CE; }
 
 /* INFO */
 
-#info { width: 400px; height: 300px; margin: 0; padding: 12px 8px; background-color: #1A262C; font-size: 0.9em; }
-#info-coin   { display: inline-block; width: 228px; margin: 0 0 10px; padding: 0; font-size: 1.4em; font-weight: 300; }
+#info { /*width: 400px;*/ height: 300px; margin: 0; padding: 12px 8px; background-color: #1A262C; font-size: 0.9em; }
 /*#info-latest { display: inline-block; width: 100px; margin: 0 0 10px; padding: 0; font-size: 1.4em; font-weight: 300; text-align: right; }*/
 #info li { line-height: 1.4em; padding: 2px 4px 1px 6px; }
 #info li:nth-child(even) { background-color: #162228; border: 1px solid #142026;}
 #info li label { display: inline-block; width: 140px; color: #A8B3CE; font-variant: small-caps; }
 #info li span  { display: inline-block; width: 230px; text-align: right; }
+#info-purchase   { float: left;  display: inline-block; margin: 0 10px 10px; padding: 0; font-size: 1.4em; font-weight: 300; color: #FFF; }
+#info-trustline  { float: right; display: inline-block; margin: 0 10px 10px; padding: 0; font-size: 1.4em; font-weight: 300; color: #888; }
+#info-purchase  a { color: #E0E6EA; font-variant: small-caps; font-weight: bold; }
+#info-trustline a { color: #A8B3CE; font-variant: small-caps; font-weight: normal; }
+.qrcode { text-align: center; }
+#qrcode { width: 250px; margin-top: 10px; border: 4px solid white; opacity: 0.7; }
 
 
 /* CHART */
@@ -101,13 +106,12 @@ svg .grid path       { stroke-width: 0; }
 /*#trading  { display: block; width: 584px; height: 197px; margin-top: 10px; background-color: #1A262C; }*/
 #calc-area  { display: block; width: 810px; height: 200px; margin-top: 10px; padding: 0; }
 #calculator { display: inline-block; float: left; width: 360px; height: 202px; padding: 0px 20px; background-color: #1A262C; margin-right: 10px; }
-#indices    { display: inline-block; float: left; width: 360px; height: 202px; padding: 0px 20px; background-color: #1A262C; }
-
 #calculator h1 { margin: 8px; font-weight: 300; font-size: 1.2em; text-align: center; }
 #calculator li { line-height: 1.4em; padding: 1px 4px 1px 6px; }
 #calculator li label { display: inline-block; width: 150px; color: #A8B3CE; font-variant: small-caps; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 #calculator li input { display: inline-block; width: 180px; padding: 2px 8px; font-size: 1em; text-align: right; color: #E0E6EA; background-color: #293941; border: 1px solid #192931; border-radius: 3px; }
 
+#indices    { display: inline-block; float: left; width: 360px; height: 202px; padding: 0px 20px; background-color: #1A262C; }
 #indices h1 { margin: 8px; font-weight: 300; font-size: 1.2em; text-align: center; }
 #indices li { line-height: 1.4em; padding: 1px 4px 1px 12px; }
 #indices li:nth-child(even) { background-color: #162228; border: 1px solid #142026;}
@@ -144,7 +148,7 @@ svg .grid path       { stroke-width: 0; }
 #all-coins tr.select td { background-color: #0A161C; }
 
 #all-coins td.rank { color: #A8B3CE; }
-/*#all-coins tr:hover  td { background-color: #293941; cursor: pointer; }*/
+#all-coins tr:hover  td { background-color: #293941; cursor: pointer; }
 
 #promo    { width: 1220px; margin: 10px 0 0; padding: 14px 0; text-align: center; background-color: #1A262C; }
 #promo h1 { margin: 0; font-weight: 300; font-size: 1.6em; }
