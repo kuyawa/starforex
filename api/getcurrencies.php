@@ -25,10 +25,11 @@ file_put_contents($arch, $text);
 
 // Parse data and save to db
 
-try {
+$server = $_SERVER['HTTP_HOST'];
+if($server=='localhost'){
+	$dbc = pg_connect("postgres://home:nopass@localhost:5432/forex");
+} else {
 	$dbc = pg_connect('host=127.0.0.1 port=5432 dbname='.$dbname.' user='.$dbuser.' password='.$dbpass);
-} catch (Exception $ex) {
-	die('Error: '.$ex->message);
 }
 
 $ymdh  = date('YmdH');

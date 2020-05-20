@@ -57,7 +57,7 @@ foreach ($price as $sym => $value) {
 	</wrap>
 </header>
 
-<div id="main">
+<div id="markets">
 	<wrap>
 		<div id="market-index">
 			<h1 class="big">Market Indices</h1>
@@ -106,10 +106,10 @@ foreach ($price as $sym => $value) {
 
 			<div id="info">
 				<li>
-					<h2 id="info-trustline"><a href="#">Trustline</a></h2>
-					<h1 id="info-purchase"><a href="#">Purchase</a></h1>
+					<h2 id="info-trustline"><a href="javascript:onTrustline();">Trustline</a></h2>
+					<h2 id="info-payment" class="qrselected"><a href="javascript:onPayment();">Payment</a></h2>
 				</li>
-				<li class="qrcode"><img id="qrcode" src="static/qrcode-test.png"></li>
+				<li class="qrcode"><div id="qrcode"></div></li>
 			</div>
 		</div>
 
@@ -135,7 +135,7 @@ foreach ($price as $sym => $value) {
 						<li><label>Buy <span id="label-quote">USD</span>:      </label><input type="textbox" id="calc-quote" value="1" tabindex="1"/></li>
 						<li><label>Price <span id="label-price">XLM/USD</span>:</label><input type="textbox" id="calc-price" value="0" tabindex="2" disabled/></li>
 						<li><label>Sell <span id="label-base">XLM</span>:</label><input type="textbox" id="calc-base" value="0" tabindex="3"/></li>
-						<button id="button-buy" onclick="onBuy()">BUY</button> <button id="button-sell" onclick="onSell()">SELL</button>
+						<button id="button-buy" onclick="javascript:return onBuy()">BUY</button> <button id="button-sell" disabled onclick="onSell()">SELL</button>
 					</form>
 				</div>
 				<div id="indices">
@@ -196,7 +196,8 @@ var btcPrice = '<?= $btc ?>';
 var forex = JSON.parse('<?= json_encode($price) ?>');
 </script>
 
-<!-- <script type="text/javascript" src="static/finchartsvg.js"></script> -->
+<script type="text/javascript" src="static/qrcode.js"></script>
+<script type="text/javascript" src="static/finchartsvg.js"></script>
 <script type="text/javascript" src="static/main.js"></script>
 </body>
 </html>

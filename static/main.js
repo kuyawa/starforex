@@ -99,7 +99,7 @@ function setCalculator(coin) {
 	$('label-base').innerHTML  = info[coin]['base'];
 	$('calc-price').value = money(quotePrice, 4, true);
 	$('calc-base').value  = money(qtyBase, 4, true);
-	//calcSYM();
+	onPayment();
 }
 
 function calcBase(event){
@@ -108,6 +108,7 @@ function calcBase(event){
 	var quotePrice = parseFloat($('calc-price').value);
 	var qtyBase    = 1/quotePrice * qtyQuote;
 	$('calc-base').value  = money(qtyBase, 4, true);
+	onPayment();
 }
 
 function calcQuote(event){
@@ -116,6 +117,7 @@ function calcQuote(event){
 	var quotePrice = parseFloat($('calc-price').value);
 	var qtyQuote   = qtyBase * quotePrice;
 	$('calc-quote').value  = money(qtyQuote, 4, true);
+	onPayment();
 }
 
 
@@ -149,11 +151,37 @@ function onChartData(json, code) {
 
     //var factor = state.bitcoin;
 	//if(code=='BTC'){ factor = 1.0; }
-    //chartData = parseBinanceData(json, factor);
+    chartData = parseData(json['data']);
 
 	showCoinInfo(code);
 	setCalculator(code);
-    //drawChart(chartData);
+    drawChart(chartData);
+}
+
+function parseData(inData, factor=1) {
+    var data = [];
+    var n = inData.length;
+    for (var i=0; i<n-1; i++) {
+    	item1 = inData[i];
+    	item2 = inData[i+1];
+    	rate1 = parseFloat(item1['price']);
+    	rate2 = parseFloat(item2['price']);
+    	lo = Math.min(rate1,rate2);
+    	hi = Math.max(rate1,rate2);
+    	tick = {
+    		//new Date('2020-05-18 15:17:07.675833'.replace(' ','T'))
+            time:   new Date(item1['time'].replace(' ','T')),
+            date:   new Date(item1['time'].replace(' ','T')),
+            open:   rate1,
+            close:  rate2,
+            high:   hi,
+            low:    lo,
+            volume: 1
+        };
+        data.push(tick);
+    }
+    //console.log('Data:',data);
+	return data;
 }
 
 function drawChart(data) {
@@ -168,6 +196,21 @@ function removeChart() {
 	if(chart){ chart.parentNode.removeChild(chart); }
 }
 
+function showQrcodeTrade(){
+	$('qrcode').innerHTML = '';
+	var amount = $('calc-base').value;
+	if(parseFloat(amount)<=0){ amount = 1; }
+	var text = 'web+stellar:pay?destination=GBANK5M4FONHN2PLMVDWFJOW7QQCN4YSLDHD5ZL6AOL3ZG2ELSRUJB47&amount='+amount+'&memo='+state.coin;
+	var qr = new QRCode('qrcode', text);
+	//console.log('qr',qr);
+}
+
+function showQrcodeTrust(){
+	$('qrcode').innerHTML = '';
+	var text = 'web+stellar:changeTrust?asset_code='+state.coin+'&asset_issuer=GBANKIPYLOQ22HODF7RSQXB6Y3X46USJPSEFTOISSNQZPU6EKCRKACYU';
+	var qr = new QRCode('qrcode', text);
+	//console.log('qr',qr);
+}
 
 //---- UTILS
 
@@ -329,7 +372,7 @@ function lastField(event)  {
 function onCoin(event) {
 	var row  = event.target.parentNode;
 	var coin = row.id;
-	console.log(coin);
+	//console.log(coin);
 	if(!coin) { return; }
 	state.coin   = coin;
 	state.market = 'XLM/'+coin;
@@ -351,7 +394,7 @@ function selectCoin(coin) {
 function onAllCoins(event) {
 	var row  = event.target.parentNode;
 	var coin = row.id;
-	console.log(coin);
+	//console.log(coin);
 	if(!coin) { return; }
 	state.coin = coin;
 	state.market = 'XLM/'+coin;
@@ -397,18 +440,36 @@ function setChartButtons(ticks)	{
 }
 
 function onResize(event) { 
-	console.log(window.innerWidth); 
+	//console.log(window.innerWidth); 
 	//drawChart(chartData);
 }
+
+function onPayment() {
+	removeClass($('info-trustline'), 'qrselected');
+	addClass($('info-payment'), 'qrselected');
+	showQrcodeTrade();
+}
+
+function onTrustline() {
+	removeClass($('info-payment'), 'qrselected');
+	addClass($('info-trustline'), 'qrselected');
+	showQrcodeTrust();
+}
+
+function onBuy() {
+	// TODO: check listener for payment
+	return false;
+}
+
 
 //---- INIT
 
 function main() {
-	state.thousand = Intl.NumberFormat(navigator.language).format(1000).substr(1,1);
 	window.addEventListener('resize', onResize, true);
-	coin = 'USD';
+	state.thousand = Intl.NumberFormat(navigator.language).format(1000).substr(1,1);
+	state.coin = 'USD';
 	state.market = 'XLM/USD';
-	getChartData(state.market, coin);
+	getChartData(state.market, state.coin);
 	enableEvents();
 }
 
