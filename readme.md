@@ -22,4 +22,4 @@ Once the assets are in your wallet you can buy products from all countries, send
 
 ## Business Model
 
-**Starforex** will collect 1% fee on every transaction
+**StarForex** will collect 1% fee on every transaction
