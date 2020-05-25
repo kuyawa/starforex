@@ -5,6 +5,7 @@
 *.dev
 
 # Private folders
+admin
 data
 docs
 work
