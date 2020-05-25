@@ -1,5 +1,8 @@
 // MAIN
 
+var issuer  = 'GBANKIPYLOQ22HODF7RSQXB6Y3X46USJPSEFTOISSNQZPU6EKCRKACYU';
+var cashier = 'GBANK5M4FONHN2PLMVDWFJOW7QQCN4YSLDHD5ZL6AOL3ZG2ELSRUJB47';
+
 var ticker   = []; // Ticker
 var coins    = ['USD'];  // Top ten
 var pairs    = {'XLM':'USD'};
@@ -200,14 +203,14 @@ function showQrcodeTrade(){
 	$('qrcode').innerHTML = '';
 	var amount = $('calc-base').value;
 	if(parseFloat(amount)<=0){ amount = 1; }
-	var text = 'web+stellar:pay?destination=GBANK5M4FONHN2PLMVDWFJOW7QQCN4YSLDHD5ZL6AOL3ZG2ELSRUJB47&amount='+amount+'&memo='+state.coin;
+	var text = 'web+stellar:pay?destination='+cashier+'&amount='+amount+'&memo='+state.coin;
 	var qr = new QRCode('qrcode', text);
 	//console.log('qr',qr);
 }
 
 function showQrcodeTrust(){
 	$('qrcode').innerHTML = '';
-	var text = 'web+stellar:changeTrust?asset_code='+state.coin+'&asset_issuer=GBANKIPYLOQ22HODF7RSQXB6Y3X46USJPSEFTOISSNQZPU6EKCRKACYU';
+	var text = 'web+stellar:changeTrust?asset_code='+state.coin+'&asset_issuer='+issuer;
 	var qr = new QRCode('qrcode', text);
 	//console.log('qr',qr);
 }
