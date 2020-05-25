@@ -19,3 +19,7 @@ Once the assets are in your wallet you can buy products from all countries, send
 ### Screenshot
 
 ![Screenshot](https://raw.githubusercontent.com/kuyawa/starforex/master/extras/screenshot.png)
+
+## Business Model
+
+**Starforex** will collect 1% fee on every transaction
