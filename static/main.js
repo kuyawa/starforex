@@ -15,6 +15,7 @@ var state    = {
 	bitcoin  : 0.0,
 	coin     : 'XLM',
 	market   : 'XLM/USD',
+	trade    : 'BUY',
 	period   : 2,   // 0.1h  1.4h  2.1d  3.7d  4.30d
 	thousand : ',',
 	ok       : true
@@ -96,10 +97,19 @@ function setCalculator(coin) {
 	var factor = (coin=='USD' ? 1 : xlmPrice);
 	var quotePrice = factor * info[coin]['close'];
 	var qtyQuote   = parseFloat($('calc-quote').value);
-	var qtyBase    = 1/quotePrice * qtyQuote;
-	$('label-quote').innerHTML = info[coin]['quote'];
-	$('label-price').innerHTML = info[coin]['market'];
-	$('label-base').innerHTML  = info[coin]['base'];
+	var qtyBase    = 0;
+	//console.log(state.trade);
+	if(state.trade=='SELL'){ 
+		$('label-quote').innerHTML = info[coin]['base'];
+		$('label-price').innerHTML = info[coin]['market'];
+		$('label-base').innerHTML  = info[coin]['quote'];
+		qtyBase = quotePrice * qtyQuote; 
+	} else {
+		$('label-quote').innerHTML = info[coin]['quote'];
+		$('label-price').innerHTML = info[coin]['market'];
+		$('label-base').innerHTML  = info[coin]['base'];
+		qtyBase = 1/quotePrice * qtyQuote;
+	}
 	$('calc-price').value = money(quotePrice, 4, true);
 	$('calc-base').value  = money(qtyBase, 4, true);
 	onPayment();
@@ -110,6 +120,7 @@ function calcBase(event){
     var qtyQuote   = parseFloat($('calc-quote').value);
 	var quotePrice = parseFloat($('calc-price').value);
 	var qtyBase    = 1/quotePrice * qtyQuote;
+	if(state.trade=='SELL'){ qtyBase = quotePrice * qtyQuote; }
 	$('calc-base').value  = money(qtyBase, 4, true);
 	onPayment();
 }
@@ -118,7 +129,8 @@ function calcQuote(event){
 	if(event && event.keyCode==9) { event.preventDefault(); return false; } 
     var qtyBase    = parseFloat($('calc-base').value);
 	var quotePrice = parseFloat($('calc-price').value);
-	var qtyQuote   = qtyBase * quotePrice;
+	var qtyQuote   = quotePrice * qtyBase;
+	if(state.trade=='SELL'){ qtyQuote = 1/quotePrice * qtyBase; }
 	$('calc-quote').value  = money(qtyQuote, 4, true);
 	onPayment();
 }
@@ -202,17 +214,34 @@ function removeChart() {
 function showQrcodeTrade(){
 	$('qrcode').innerHTML = '';
 	var amount = $('calc-base').value;
-	if(parseFloat(amount)<=0){ amount = 1; }
-	var text = 'web+stellar:pay?destination='+cashier+'&amount='+amount+'&memo='+state.coin;
-	var qr = new QRCode('qrcode', text);
-	//console.log('qr',qr);
+	if(parseFloat(amount)<=0){ amount = 0; }
+	var text = '';
+	if(state.trade=='SELL'){
+		text = 'web+stellar:pay?amount='+amount+'&memo=XLM&asset_code='+state.coin+'&asset_issuer='+issuer+'&destination='+cashier;
+	} else {
+		text = 'web+stellar:pay?amount='+amount+'&memo='+state.coin+'&destination='+cashier;
+	}
+	//console.log(text);
+	//var qr = new QRCode('qrcode', {text:text, correctLevel:QRCode.CorrectLevel.H});
+	//var qr = new QRCode('qrcode', text);
+	QRCode(text, 'qrcode');
 }
 
 function showQrcodeTrust(){
 	$('qrcode').innerHTML = '';
 	var text = 'web+stellar:changeTrust?asset_code='+state.coin+'&asset_issuer='+issuer;
-	var qr = new QRCode('qrcode', text);
-	//console.log('qr',qr);
+	//var qr = new QRCode('qrcode', text);
+	QRCode(text, 'qrcode');
+}
+
+function QRCode(text, div) {
+	var typeNumber = 0;
+	var errorCorrectionLevel = 'H';
+	var qr = qrcode(typeNumber, errorCorrectionLevel);
+	qr.addData(text);
+	qr.make();
+	$(div).innerHTML = qr.createImgTag();
+	$(div).title = text;
 }
 
 //---- UTILS
@@ -353,7 +382,6 @@ function enableEvents() {
 	$('all-coins').addEventListener('click',   function(event){onAllCoins(event)},false);
 	$('calc-base').addEventListener('keyup',   function(event){calcQuote(event)} ,false);
 	$('calc-quote').addEventListener('keyup',  function(event){calcBase(event)}  ,false);
-	//$('calc-price').addEventListener('keyup',  function(event){calcPrice(event)}   ,false);
 }
 
 function firstField(event) { 
@@ -460,7 +488,24 @@ function onTrustline() {
 }
 
 function onBuy() {
-	// TODO: check listener for payment
+	state.trade = 'BUY';
+	$('calc-title').innerHTML = 'Trade XLM for '+state.coin;
+	$('label-quote').innerHTML = state.coin;
+	$('label-base').innerHTML = 'XLM';
+	removeClass($('button-buy'),'button-off');
+	addClass($('button-sell'),'button-off');
+	setCalculator(state.coin);
+	return false;
+}
+
+function onSell() {
+	state.trade = 'SELL';
+	$('calc-title').innerHTML = 'Trade '+state.coin+' for XLM';
+	$('label-quote').innerHTML = 'XLM';
+	$('label-base').innerHTML = state.coin;
+	removeClass($('button-sell'),'button-off');
+	addClass($('button-buy'),'button-off');
+	setCalculator(state.coin);
 	return false;
 }
 
@@ -476,6 +521,8 @@ function main() {
 	enableEvents();
 }
 
+//window.document.addEventListener('load', main, true);
+//window.document.onload = main;
 window.onload = main;
 
 

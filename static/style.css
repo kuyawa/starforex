@@ -77,8 +77,10 @@ footer h2 { font-size: 1.0em; font-weight: 300; color: #A8B3CE; }
 #info-trustline a { color: #A8B3CE; font-variant: small-caps; }
 .qrcode { text-align: center; }
 #qrcode { text-align: center; width: 258px; height: 258px; margin: 20px auto 0; border: 4px solid white; opacity: 0.7; }
+#qrcode img { width: 250px; height: 250px; }
 .qrselected a { font-weight: bold; color: #FFF; }
 .qrbutton {  }
+#warn { text-align: center; font-size: 0.8em; }
 
 /* CHART */
 
@@ -164,8 +166,9 @@ svg .grid path       { stroke-width: 0; }
 #button-sell { color: #FFF; background-color: #850414; cursor: pointer; }
 #button-buy:active  { color: #DDD; background-color: #3A6015; }
 #button-sell:active { color: #DDD; background-color: #750404; }
-#button-buy[disabled]  { color: #999; background-color: #495961; }
-#button-sell[disabled] { color: #999; background-color: #495961; cursor: not-allowed !important; }
+#button-buy.button-off  { color: #999; background-color: #495961; }
+#button-sell.button-off  { color: #999; background-color: #495961; }
+/*#button-sell[disabled] { color: #999; background-color: #495961; cursor: not-allowed !important; }*/
 
 
 .intro { margin-top: 20px; padding: 10px 30px; font-weight: 200; opacity: 0.80; font-variant: small-caps; background: #00000044; border-radius: 10px; }

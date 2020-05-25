@@ -130,12 +130,13 @@ foreach ($price as $sym => $value) {
 
 			<div id="calc-area">
 				<div id="calculator">
-					<h1 id="calc-title">BUY / SELL</h1>
+					<h1 id="calc-title">Trade XLM for USD</h1>
 					<form id="calc-form">
-						<li><label>Buy <span id="label-quote">USD</span>:      </label><input type="textbox" id="calc-quote" value="1" tabindex="1"/></li>
+						<li><label>Buy <span id="label-quote">USD</span>:</label><input type="textbox" id="calc-quote" value="1" tabindex="1"/></li>
 						<li><label>Price <span id="label-price">XLM/USD</span>:</label><input type="textbox" id="calc-price" value="0" tabindex="2" disabled/></li>
 						<li><label>Sell <span id="label-base">XLM</span>:</label><input type="textbox" id="calc-base" value="0" tabindex="3"/></li>
-						<button id="button-buy" onclick="javascript:return onBuy()">BUY</button> <button id="button-sell" disabled onclick="onSell()">SELL</button>
+						<button id="button-buy" onclick="javascript: return onBuy()">BUY</button> <button id="button-sell" onclick="javascript: return onSell()" class="button-off">SELL</button>
+						<li id="warn">Scan QRCode with your wallet</li>
 					</form>
 				</div>
 				<div id="indices">
@@ -196,7 +197,7 @@ var btcPrice = '<?= $btc ?>';
 var forex = JSON.parse('<?= json_encode($price) ?>');
 </script>
 
-<script type="text/javascript" src="static/qrcode.js"></script>
+<script type="text/javascript" src="static/qrcodelib.js"></script>
 <script type="text/javascript" src="static/finchartsvg.js"></script>
 <script type="text/javascript" src="static/main.js"></script>
 </body>
