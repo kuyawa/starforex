@@ -1,5 +1,7 @@
 <?php
 
+// STARFOREX
+
 date_default_timezone_set('UTC');
 
 $xlm  = 1.0;
@@ -63,7 +65,8 @@ if($price["BTC"] && $price["BTC"] > 0){ $btc = 1/$price["BTC"]; }
 
 <footer>
 	<wrap>
-		<h2>@2020 All rights reserved</h2> <h1>STARFOREX</h1>
+		<h2>@2020 All rights reserved</h2> 
+		<h1>STARFOREX</h1>
 	</wrap>
 </footer>
 

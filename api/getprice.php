@@ -28,7 +28,6 @@ try {
 		//print_r($row);
 		$rows[] = $row;
 	}
-	
 	pg_free_result($res);
 	pg_close($dbc);
 } catch (Exception $ex) {

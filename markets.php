@@ -1,5 +1,7 @@
 <?php
 
+// STARFOREX
+
 date_default_timezone_set('UTC');
 
 $xlm  = 1.0;
@@ -29,6 +31,8 @@ foreach ($price as $sym => $value) {
 	$pxlm = number_format($value * $xlm, 4);
 	$fiat[$sym] = [$name, $pxlm, $pusd];
 }
+
+ksort($fiat);
 
 ?>
 <!DOCTYPE html>

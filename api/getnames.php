@@ -1,4 +1,7 @@
 <?php
+
+// STARFOREX
+
 header('content-type: text/plain');
 date_default_timezone_set('UTC');
 define('NL',"\n");

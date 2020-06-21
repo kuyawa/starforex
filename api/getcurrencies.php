@@ -13,11 +13,19 @@ $path = '../data/';  // Relative
 $forx = $path.'forex.json';
 $arch = $path.'c'.$date.'.json';
 
-$url  = 'https://currencyapi.net/api/v1/rates?key='.$ckey.'&base=USD';
-$text = file_get_contents($url);
+// Currencies
+$url1 = 'https://currencyapi.net/api/v1/rates?key='.$ckey.'&base=USD';
+$text = file_get_contents($url1);
 $data = json_decode($text, true);
 
 if(!$data) { die('{"error":"500","message":"Server error"}'); } 
+
+// Venezuelan Bolivar
+$url2 = 'http://altcoins-mobile.appspot.com/api/latest';
+$txt2 = file_get_contents($url2);
+$dat2 = json_decode($txt2, true);
+if($dat2) { $data['rates']['VES'] = $dat2['doltoday']; } 
+$text = json_encode($data);
 
 file_put_contents($forx, $text);
 file_put_contents($arch, $text);

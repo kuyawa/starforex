@@ -1,3 +1,5 @@
+// STARFOREX
+
 const BOTVERSION = '1.06';
 const PORT       = process.env.PORT || 5000;
 const http       = require('http');

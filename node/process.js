@@ -1,3 +1,5 @@
+// STARFOREX
+
 const BOTVERSION = '1.06';
 const http       = require('http');
 const request    = require('request');
@@ -80,7 +82,7 @@ async function processPayment(opid) {
                             };
                             //console.log(data);
 
-                            // Validate typ is payment
+                            // Validate type is payment
                             if(payment.type!='payment') {
                                 data.status = 8;  // Invalid
                                 data.reason = 'Invalid operation';
